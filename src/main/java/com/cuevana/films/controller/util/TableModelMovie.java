@@ -15,10 +15,6 @@ public class TableModelMovie extends DefaultTableModel {
 
     @Override
     public boolean isCellEditable(int row, int column) {
-        if (this.getColumnName(column).equals("DIGITALIZAR ACTA")) {
-            return true;
-        }
-
         return false;
     }
 
