@@ -15,6 +15,11 @@ public class TableModelMovie extends DefaultTableModel {
 
     @Override
     public boolean isCellEditable(int row, int column) {
+        // Columna eliminar y editar
+        if (column == 7 || column == 8) {
+            return true;
+        }
+
         return false;
     }
 

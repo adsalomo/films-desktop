@@ -6,6 +6,7 @@
 package com.cuevana.films.controller.util;
 
 import com.cuevana.films.models.entity.Movie;
+import com.cuevana.films.util.OperationTypeEnum;
 import java.util.List;
 import javax.swing.JTable;
 
@@ -25,6 +26,15 @@ public class GridMovie {
         }
 
         jTable.setModel(tableModelMovie);
+        
+        jTable.getColumn("ELIMINAR")
+                .setCellRenderer(new JButtonRenderer(OperationTypeEnum.DELETE));
+        jTable.getColumn("ELIMINAR")
+                .setCellEditor(new JButtonRenderer(OperationTypeEnum.DELETE));
+        jTable.getColumn("EDITAR")
+                .setCellRenderer(new JButtonRenderer(OperationTypeEnum.UPDATE));
+        jTable.getColumn("EDITAR")
+                .setCellEditor(new JButtonRenderer(OperationTypeEnum.UPDATE));
     }
 
     public TableModelMovie getTableModelMovie() {

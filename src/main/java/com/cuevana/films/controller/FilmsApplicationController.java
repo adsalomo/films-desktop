@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cuevana.films.controller;
 
 import com.cuevana.films.controller.util.GridMovie;
@@ -16,13 +11,10 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-/**
- *
- * @author adrian
- */
 public class FilmsApplicationController {
 
-    private final static String[] COLUMNS = {"ID", "NOMBRE", "DESCRIPCIÓN", "GENERO", "IMAGEN", "ACTORES", "FECHA ESTRENO"};
+    private final static String[] COLUMNS = {"ID", "NOMBRE", "DESCRIPCIÓN", 
+        "GENERO", "IMAGEN", "ACTORES", "FECHA ESTRENO", "ELIMINAR", "EDITAR"};
     private final GridMovie gridMovie;
     private static FilmsApplicationController instance;
     private final MovieService movieService;
