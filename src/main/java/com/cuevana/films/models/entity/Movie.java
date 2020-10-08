@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cuevana.films.models.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- *
- * @author adrian
- */
 public class Movie {
 
     private int id;
@@ -22,6 +13,7 @@ public class Movie {
     private LocalDate releaseDate;
     private String actors;
     private String gender;
+    private String genderName;
     private int rating;
 
     /**
@@ -148,6 +140,20 @@ public class Movie {
      */
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    /**
+     * @return the genderName
+     */
+    public String getGenderName() {
+        return genderName;
+    }
+
+    /**
+     * @param genderName the genderName to set
+     */
+    public void setGenderName(String genderName) {
+        this.genderName = genderName;
     }
 
     @Override

@@ -1,38 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cuevana.films;
 
 import com.cuevana.films.controller.FilmsApplicationController;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author adrian
- */
 public class FilmsApplication extends javax.swing.JFrame {
 
     private static final String PATH = "C:\\DESARROLLO\\PASCUAL BRAVO\\MOVIES\\movies.txt";
     private final FilmsApplicationController controller;
 
-    /**
-     * Creates new form FilmsApplication
-     */
     public FilmsApplication() {
         initComponents();
         controller = FilmsApplicationController.getInstance();
+        lblId.setVisible(false);
+        txtID.setVisible(false);
         loadMovies();
     }
     
     private void loadMovies() {
         try {
             controller.loadMovies(tblMovies, PATH);
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(FilmsApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -57,7 +48,7 @@ public class FilmsApplication extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -83,7 +74,7 @@ public class FilmsApplication extends javax.swing.JFrame {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("FILMS ONLINE");
 
-        jLabel5.setText("ID");
+        lblId.setText("ID");
 
         jLabel6.setText("NOMBRE");
 
@@ -124,7 +115,7 @@ public class FilmsApplication extends javax.swing.JFrame {
                     .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +127,7 @@ public class FilmsApplication extends javax.swing.JFrame {
                             .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -170,7 +159,7 @@ public class FilmsApplication extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5)
+                            .addComponent(lblId)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -218,11 +207,16 @@ public class FilmsApplication extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, messageError);
                 return;
             }
-
-            if (controller.getMovie(Integer.parseInt(txtID.getText().trim()), PATH) != null) {
-                JOptionPane.showMessageDialog(null, "Ya existe una pelicula con igual ID!!!");
+            
+            if (controller.getGender(Integer.parseInt(txtGender.getText())) == null) {
+                JOptionPane.showMessageDialog(null, "No existe el genero en la base de datos");
                 return;
             }
+
+//            if (controller.getMovie(Integer.parseInt(txtID.getText().trim()), PATH) != null) {
+//                JOptionPane.showMessageDialog(null, "Ya existe una pelicula con igual ID!!!");
+//                return;
+//            }
 
             controller.createMovie(txtID.getText(), txtName.getText(),
                     txtDescription.getText(), txtGender.getText(), txtImage.getText(), txtActors.getText(), txtReleaseDate.getText(), PATH);
@@ -231,7 +225,7 @@ public class FilmsApplication extends javax.swing.JFrame {
             
             clearText();
             loadMovies();
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar la pelicula!!!");
             ex.printStackTrace();
         }
@@ -276,11 +270,11 @@ public class FilmsApplication extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scrollTable;
     private javax.swing.JTable tblMovies;
